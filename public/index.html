@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LeadPilot AI — Descoberta e CRM</title>
+  <link rel="stylesheet" href="/styles.css"/>
+</head><body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-icon">✦</span><span>leadpilot<span class="ai">.ai</span></span></div>
+      <p class="sidetitle">WORKSPACE</p>
+      <nav><button class="nav active" data-view="discover"><span>⌕</span> Descobrir leads</button><button class="nav" data-view="pipeline"><span>▤</span> Pipeline comercial</button><button class="nav" data-view="messages"><span>▦</span> Conversas</button></nav>
+      <div class="sidebar-bottom"><span class="online-dot"></span><span id="mode-text">Verificando integrações…</span><small>V0.1 · MVP local</small></div>
+    </aside>
+    <div class="main">
+      <header class="topbar"><div><span class="eyebrow">SEU CENTRO DE PROSPECÇÃO</span><h1 id="view-title">Descobrir oportunidades</h1></div><div class="user-pill"><div class="avatar">LP</div><span>Meu workspace</span></div></header>
+      <section class="metrics" id="metrics"><div class="metric"><div class="metric-caption">Empresas encontradas <span>⌕</span></div><strong id="m-found">0</strong><small>Nesta pesquisa</small></div><div class="metric"><div class="metric-caption">Sem site registrado <span>◈</span></div><strong id="m-no-site">0</strong><small>No Google Places</small></div><div class="metric"><div class="metric-caption">No seu CRM <span>▤</span></div><strong id="m-crm">0</strong><small>Place IDs salvos</small></div><div class="metric"><div class="metric-caption">Interessados <span>✳</span></div><strong id="m-interested">0</strong><small>Conversas qualificadas</small></div></section>
+      <section id="discover-view">
+        <div class="panel ai-panel"><div><span class="eyebrow">GROQ CLOUD · IA COMERCIAL</span><h2>Inteligência para qualificar e conversar</h2><p id="groq-info">Verificando conexão com a Groq…</p></div><button class="secondary" type="button" id="test-groq">Testar IA (sem WhatsApp)</button></div>
+        <div class="panel import-panel">
+          <div class="section-head"><div><span class="eyebrow">IMPORTAÇÃO · GOOGLE MAPS LEAD EXTRACTOR</span><h2>Importar leads por arquivo JSON</h2><p>Todos os registros válidos entram na lista abaixo. Nenhum é selecionado nem enviado ao CRM automaticamente.</p></div><span class="chip">Seleção manual</span></div>
+          <form id="json-import-form" class="import-upload"><label>ARQUIVO JSON<input type="file" id="json-file" accept=".json,application/json" required></label><button type="submit" id="json-import-btn" class="primary">Importar para a lista</button></form>
+          <p class="import-report" id="import-report" aria-live="polite">Importações mantidas na lista de prospecção, separadas do CRM.</p>
+          <div class="results-bar import-header"><div><h2>Leads importados <span class="result-count" id="import-count">0</span></h2><p>Use os checkboxes somente quando decidir quais entram no CRM.</p></div><div class="filter-group"><button class="filter active" type="button" data-import-filter="all">Todos</button><button class="filter" type="button" data-import-filter="noSite">Sem site</button><button class="filter" type="button" data-import-filter="unverified">A verificar</button><button class="filter" type="button" data-import-filter="new">Fora do CRM</button></div></div>
+          <div class="import-results" id="import-results"><div class="empty">Nenhum JSON importado ainda.</div></div>
+          <div class="import-footer"><span><strong id="import-selected-count">0</strong> selecionados</span><button type="button" id="import-crm-selected" class="primary" disabled>Adicionar selecionados ao CRM</button></div>
+        </div>
+        <div class="search-panel panel"><div class="section-head"><div><span class="eyebrow">01 / DESCOBERTA</span><h2>Encontre seu próximo cliente</h2><p>Pesquise estabelecimentos por cidade e segmento.</p></div><div class="chip">Google Places API</div></div><form id="search-form"><label>CIDADE<input id="city" placeholder="Ex.: Pindamonhangaba, SP" value="Pindamonhangaba, SP" required></label><label>SEGMENTO<input id="segment" placeholder="Ex.: sorveterias, salões de beleza" value="sorveterias" required></label><button class="primary" type="submit" id="search-btn">⌕ &nbsp; Buscar empresas</button></form></div>
+        <div class="results-bar"><div><h2>Resultados da busca <span class="result-count" id="result-count">0</span></h2><p id="results-caption">Faça uma pesquisa para encontrar oportunidades.</p></div><div class="filter-group"><button class="filter active" data-filter="all">Todas</button><button class="filter" data-filter="noSite">Sem site registrado</button><button class="filter" data-filter="hasSite">Com site</button></div></div>
+        <div class="lead-grid" id="results"><div class="empty">Use os filtros acima para encontrar oportunidades de desenvolvimento web.</div></div>
+        <p class="disclaimer">Resultados exibidos a partir do Google Maps com identificação da fonte. “Sem site registrado” não significa ausência comprovada de site. As fichas são consultadas ao vivo e não são copiadas para o CRM.</p>
+      </section>
+      <section id="pipeline-view" hidden><div class="results-bar"><div><h2>Pipeline comercial</h2><p>Qualifique cada empresa com informações verificadas por você.</p></div><span class="chip">Score = prioridade, não probabilidade de venda</span></div><div class="pipeline-layout"><div class="panel pipeline-list" id="crm-list"><div class="empty">Nenhum lead salvo.</div></div><div class="panel inspector" id="inspector"><div class="empty">Selecione um lead para qualificar.</div></div></div></section>
+      <section id="messages-view" hidden><div class="results-bar"><div><h2>Caixa de conversas</h2><p>Mensagens registradas via webhook da Evolution API.</p></div><span class="chip">WhatsApp · Opt-in</span></div><div class="pipeline-layout"><div class="panel pipeline-list" id="chat-list"></div><div class="panel inspector" id="chat-panel"><div class="empty">Selecione um lead com conversa.</div></div></div></section>
+    </div>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/app.js"></script>
+</body></html>
