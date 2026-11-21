@@ -12,7 +12,7 @@ O servidor escuta **somente 127.0.0.1 por padrão**. **O MVP não possui login**
 
 ## Importação do Maps Lead Extractor (JSON) — SEM seleção automática
 
-1. Na extensão [Maps Lead Extractor](https://github.com/GustavoN-S/extrator-de-leads), exporte o arquivo JSON de estabelecimentos.
+1. Na extensão [Maps Lead Extractor], exporte o arquivo JSON de estabelecimentos.
 2. Na aba **Descobrir leads** do LeadPilot, selecione o arquivo em **Importar leads por arquivo JSON** e clique **Importar para a lista**.
 3. Os estabelecimentos válidos são gravados na **lista de prospecção importada** (`data/imported-leads.json`), NÃO no CRM. O painel exibe nome, endereço, telefone, status do site e score do extrator. Todos entram **desmarcados**.
 4. O importador detecta duplicatas dentro do JSON, na lista importada e no CRM. Para evitar falsos positivos, exige identificadores fortes: ID do Google, URL da ficha, nome e endereço, ou nome e telefone. Duplicatas exatas são ignoradas e contabilizadas.
