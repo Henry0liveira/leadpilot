@@ -1,0 +1,19 @@
+services:
+  bridge:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    network_mode: host
+    environment:
+      HOST: 127.0.0.1
+      BOT_LOCAL_URL: http://127.0.0.1:8788
+      QUEUE_DIR: /app/data/queue
+    volumes:
+      - bridge-data:/app/data
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+volumes:
+  bridge-data:
